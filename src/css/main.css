@@ -37,6 +37,10 @@ b {
   color: var(--color-primary);
 }
 
+.hidden {
+  display: none !important;
+}
+
 a.navbar-brand {
   margin-left: -25px;
 }
@@ -53,7 +57,7 @@ a.navbar-brand {
   font-size: 20px;
   border-radius: 20px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.3);
-  padding: 12px !important;
+  padding: 14px !important;
   border: none;
 }
 
@@ -103,8 +107,8 @@ a.navbar-brand {
 
 .icon-left {
   background-color: var(--color-primary) !important;
-  border-radius: 20px !important;
-  padding: 10px 12px !important;
+  border-radius: 18px !important;
+  padding: 8px 10px !important;
   color: var(--color-white) !important;
 }
 
@@ -118,21 +122,25 @@ a.navbar-brand {
   width: 50px;
 }
 
+.banner .container {
+  position: relative;
+}
+
 .card-banner {
   height: 450px;
   width: 450px;
   border-radius: 170px;
   background-color: #f4c949;
   position: absolute;
-  right: 160px;
-  top: 200px;
+  right: -10px;
+  top: -80px;
 }
 
 .img-banner img {
   position: absolute;
   width: 570px;
-  top: 300px;
-  right: 180px;
+  top: 0;
+  right: 0;
 }
 
 .card {
@@ -147,8 +155,8 @@ a.navbar-brand {
   width: 350px;
   font-size: 14px;
   position: absolute;
-  right: 150px;
-  bottom: 70px;
+  right: 0;
+  bottom: 0;
 }
 
 .card-case-name {
@@ -308,4 +316,107 @@ a.navbar-brand {
 .card-item:hover .price-product {
   color: var(--color-black-heavy) !important;
   margin-top: 20px;
+}
+
+.testimonials {
+  padding-top: 100px;
+  padding-bottom: 150px;
+}
+
+.background-testimonials {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 500px;
+  background-image: url('../../public/assets/images/bg-icons-1.png');
+}
+
+.testimonials .container {
+  position: relative;
+}
+
+.card-testimonials {
+  height: 390px;
+  width: 390px;
+  border-radius: 120px;
+  background-color: var(--color-secondary);
+  position: absolute;
+  left: 0;
+}
+
+.img-testimonials {
+  position: absolute;
+  width: 570px;
+  top: 40px;
+  left: -140px;
+}
+
+.container-data-testimonial {
+  display: flex;
+}
+
+.testimonial {
+  margin-top: 70px;
+}
+
+.img-testimonial {
+  width: 65px;
+  height: 65px;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 15px;
+}
+
+#testimonial-1 .img-testimonial {
+  background-image: url('../../public/assets/images/diego.jpg');
+  background-size: cover;
+}
+
+#testimonial-2 .img-testimonial {
+  background-image: url('../../public/assets/images/ana.jpg');
+  background-size: cover;
+}
+
+#testimonial-3 .img-testimonial {
+  background-image: url('../../public/assets/images/joao.jpg');
+  background-size: cover;
+}
+
+.name-testimonial {
+  color: var(--color-black);
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.rank-testimonial {
+  color: var(--color-primary);
+}
+
+.rank-testimonial span {
+  color: var(--color-black);
+}
+
+.text-testimonial {
+  display: flex;
+  font-size: 16px;
+  color: var(--color-black);
+}
+
+.text-testimonial i {
+  font-size: 35px;
+  color: var(--color-primary);
+}
+
+.text-testimonial i:first-child {
+  padding-left: 10px;
+  padding-right: 35px;
+}
+
+.text-testimonial i:last-child {
+  padding-left: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
 }

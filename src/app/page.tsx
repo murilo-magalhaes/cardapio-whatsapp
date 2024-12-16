@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Banner from '@/components/Banner';
 import Services from '@/components/Services';
 import Dishes from '@/components/Dishes';
+import Testimonials from '@/components/Testimonials';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Banner />
       <Services />
       <Dishes />
+      <Testimonials />
     </main>
   );
 }
