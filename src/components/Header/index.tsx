@@ -45,8 +45,8 @@ export default function Header() {
                 </a>
               </li>
             </ul>
-            <a className="btn btn-white btn-icon pr-2">
-              Meu carrinho
+            <a className="btn btn-white btn-icon">
+              <span>Meu carrinho</span>
               <span className="icon ml-1 rounded">
                 <i className="fa fa-shopping-bag"></i>
               </span>

@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
-import '../css/main.css';
-import '../css/fontawesome.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import '../css/main.css';
+import '../css/fontawesome.css';
+import { PrimeReactProvider } from 'primereact/api';
+import ToastContextProvider from '@/context/AppToastContext';
 
 export const metadata: Metadata = {
   title: 'Cardápio Online com Whatsapp',
@@ -18,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <PrimeReactProvider>
+          <ToastContextProvider>{children}</ToastContextProvider>
+        </PrimeReactProvider>
+      </body>
     </html>
   );
 }
