@@ -646,3 +646,55 @@ footer {
   right: 10px;
   top: 30px;
 }
+
+.img-product-resume img {
+  width: 90px;
+  border-radius: 11px;
+}
+
+.item-cart.resume {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title-product-resume {
+  color: var(--color-black);
+  font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.price-product-resume {
+  color: var(--color-primary);
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.qnt-product-resume {
+  color: var(--color-black);
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.img-map {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-secondary);
+  color: var(--color-black);
+  font-size: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 11px;
+}
+
+.text-address {
+  margin-bottom: 0;
+  color: var(--color-black);
+}
+
+.city-address {
+  margin-bottom: 0;
+}

@@ -31,8 +31,8 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
               Fechar
             </a>
             <div className="steps">
-              <div className={`step ${step === 1 ? 'active' : ''}`}>1</div>
-              <div className={`step ${step === 2 ? 'active' : ''}`}>2</div>
+              <div className={`step ${step >= 1 ? 'active' : ''}`}>1</div>
+              <div className={`step ${step >= 2 ? 'active' : ''}`}>2</div>
               <div className={`step ${step === 3 ? 'active' : ''}`}>3</div>
             </div>
 
@@ -139,7 +139,57 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                 </div>
               </div>
             )}
-            {step === 3 && <div className="row mx-0"></div>}
+            {step === 3 && (
+              <div className="row mx-0">
+                <div className="col-12">
+                  <p className="title-cart mt-4">
+                    <b>Itens do pedido:</b>
+                  </p>
+                </div>
+
+                <div className="col-12">
+                  <div className="row">
+                    <div className="col-12 item-cart resume">
+                      <div className="img-product-resume">
+                        <img
+                          src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg"
+                          alt="Produto"
+                        />
+                      </div>
+                      <div className="data-product">
+                        <p className="title-product-resume">
+                          <b>Nome do produto</b>
+                        </p>
+                        <p className="price-product-resume">
+                          <b>R$ 100,00</b>
+                        </p>
+                      </div>
+                      <p className="qnt-product-resume">
+                        x <b>3</b>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-12">
+                  <p className="title-cart mt-4">
+                    <b>Local da entrega:</b>
+                  </p>
+                </div>
+
+                <div className="col-12 item-cart resume">
+                  <div className="img-map">
+                    <i className="fas fa-map-marked-alt"></i>
+                  </div>
+                  <div className="data-product">
+                    <p className="text-address">
+                      <b>Rua teste, 200, bairro teste</b>
+                    </p>
+                    <p className="city-address">Cidade-GO / 75400-000</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="m-footer">
