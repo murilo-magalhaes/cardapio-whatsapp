@@ -4,6 +4,7 @@ import Services from '@/components/Services';
 import Dishes from '@/components/Dishes';
 import Testimonials from '@/components/Testimonials';
 import Reservations from '@/components/Reservations';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Dishes />
       <Testimonials />
       <Reservations />
+      <Footer />
     </main>
   );
 }
