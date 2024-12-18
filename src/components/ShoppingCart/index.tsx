@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { InputText } from 'primereact/inputtext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   isOpen: boolean;
@@ -13,6 +13,12 @@ interface IProps {
 
 export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
   const [step, setStep] = useState<number>(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+    }
+  }, [isOpen]);
 
   return (
     <Dialog

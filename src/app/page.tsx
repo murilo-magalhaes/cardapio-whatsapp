@@ -5,6 +5,7 @@ import Dishes from '@/components/Dishes';
 import Testimonials from '@/components/Testimonials';
 import Reservations from '@/components/Reservations';
 import Footer from '@/components/Footer';
+import ScrollToTopButton from '@/components/Buttons/ScrollToTopButton';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Testimonials />
       <Reservations />
       <Footer />
+      <ScrollToTopButton />
     </main>
   );
 }

@@ -16,8 +16,15 @@ export default function Banner() {
                 casa de forma rápida e segura.
               </p>
               <div>
-                <a className="btn btn-yellow mt-4 mr-3">Ver cardápio</a>
-                <a href="#" className="btn btn-white btn-icon-left mt-4">
+                <a href="#dishes" className="btn btn-yellow mt-4 mr-3">
+                  Ver cardápio
+                </a>
+                <a
+                  href="tel:+5562985099000"
+                  target="_blank"
+                  className="btn btn-white btn-icon-left mt-4"
+                  rel="noreferrer"
+                >
                   <span className="icon-left p-2 rounded mr-2">
                     <i className="fa fa-phone"></i>
                   </span>
@@ -25,13 +32,28 @@ export default function Banner() {
                 </a>
               </div>
             </div>
-            <a href="#" className="btn btn-sm btn-white btn-social mt-4 mr-3">
+            <a
+              href="https://instagram.com/webger_"
+              target="_blank"
+              className="btn btn-sm btn-white btn-social mt-4 mr-3"
+              rel="noreferrer"
+            >
               <i className="fab fa-instagram"></i>
             </a>
-            <a href="#" className="btn btn-sm btn-white btn-social mt-4 mr-3">
+            <a
+              href="https://www.facebook.com/webger.erp"
+              target="_blank"
+              className="btn btn-sm btn-white btn-social mt-4 mr-3"
+              rel="noreferrer"
+            >
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="#" className="btn btn-sm btn-white btn-social mt-4">
+            <a
+              href="https://wa.me/5562985099000"
+              target="_blank"
+              className="btn btn-sm btn-white btn-social mt-4"
+              rel="noreferrer"
+            >
               <i className="fab fa-whatsapp"></i>
             </a>
           </div>

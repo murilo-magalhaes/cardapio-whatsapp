@@ -1,4 +1,15 @@
+'use client';
+
+import dishesMenu, { IMenu } from '@/mock/dados';
+import { useState } from 'react';
+
 export default function Dishes() {
+  const [menu, setMenu] = useState<IMenu>(dishesMenu);
+
+  const [sectionMenu, setSectionMenu] = useState<number>(1);
+
+  console.log(sectionMenu);
+
   return (
     <section className="dishes" id="dishes">
       <div className="background-dishes"></div>
@@ -13,27 +24,57 @@ export default function Dishes() {
             </h1>
           </div>
           <div className="col-12 container-menu">
-            <a className="btn btn-white btn-sm mr-3 active">
+            <a
+              onClick={() => setSectionMenu(1)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 1 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-hamburger"></i> {'  '}Burgers
             </a>
 
-            <a className="btn btn-white btn-sm mr-3">
+            <a
+              onClick={() => setSectionMenu(2)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 2 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-pizza-slice"></i> {'  '}Pizzas
             </a>
 
-            <a className="btn btn-white btn-sm mr-3">
+            <a
+              onClick={() => setSectionMenu(3)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 3 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-drumstick-bite"></i> {'  '}Churrasco
             </a>
 
-            <a className="btn btn-white btn-sm mr-3">
+            <a
+              onClick={() => setSectionMenu(4)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 4 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-bacon"></i> {'  '}Steaks
             </a>
 
-            <a className="btn btn-white btn-sm mr-3">
+            <a
+              onClick={() => setSectionMenu(5)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 5 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-cocktail"></i> {'  '}Bebidas
             </a>
 
-            <a className="btn btn-white btn-sm mr-3">
+            <a
+              onClick={() => setSectionMenu(6)}
+              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                sectionMenu === 6 ? 'active' : ''
+              }`}
+            >
               <i className="fas fa-ice-cream"></i> {'  '}Sobremesas
             </a>
           </div>
