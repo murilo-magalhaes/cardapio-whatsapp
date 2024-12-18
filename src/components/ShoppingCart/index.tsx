@@ -1,5 +1,9 @@
 'use client';
+import ufsOpts from '@/dtos/ufsOpts';
 import { Dialog } from 'primereact/dialog';
+import { Dropdown } from 'primereact/dropdown';
+import { InputMask } from 'primereact/inputmask';
+import { InputText } from 'primereact/inputtext';
 import { useState } from 'react';
 
 interface IProps {
@@ -68,149 +72,73 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                     </span>
                   </div>
                 </div>
-
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
-                  </div>
-
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
-                  </div>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+              </div>
+            )}
+            {step === 2 && (
+              <div className="row mx-0">
+                <div className="col-4">
+                  <div className="form-group container-cep">
+                    <label htmlFor="cep">CEP:</label>
+                    <InputMask
+                      name="cep"
+                      mask="99.999-999"
+                      className="form-control"
+                    />
+                    <a className="btn btn-yellow btn-sm">
+                      <i className="fa fa-search"></i>
+                    </a>
                   </div>
                 </div>
 
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
-                  </div>
+                <div className="col-8"></div>
 
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
-                  </div>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+                <div className="col-6">
+                  <div className="form-group">
+                    <label htmlFor="street">Endereço:</label>
+                    <InputText name="street" className="form-control" />
                   </div>
                 </div>
 
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
-                  </div>
-
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
-                  </div>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+                <div className="col-4">
+                  <div className="form-group">
+                    <label htmlFor="neighborhood">Bairro:</label>
+                    <InputText name="neighborhood" className="form-control" />
                   </div>
                 </div>
 
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
-                  </div>
-
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
-                  </div>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+                <div className="col-2">
+                  <div className="form-group">
+                    <label htmlFor="number">Número:</label>
+                    <InputText name="number" className="form-control" />
                   </div>
                 </div>
 
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
+                <div className="col-6">
+                  <div className="form-group">
+                    <label htmlFor="city">Cidade:</label>
+                    <InputText name="city" className="form-control" />
                   </div>
+                </div>
 
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
+                <div className="col-4">
+                  <div className="form-group">
+                    <label htmlFor="complement">Complemento:</label>
+                    <InputText name="complement" className="form-control" />
                   </div>
+                </div>
 
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+                <div className="col-2">
+                  <div className="form-group">
+                    <label htmlFor="uf">UF:</label>
+                    <Dropdown
+                      name="uf"
+                      options={ufsOpts}
+                      className="form-control flex py-1"
+                    />
                   </div>
                 </div>
               </div>
             )}
-            {step === 2 && <div className="row mx-0"></div>}
             {step === 3 && <div className="row mx-0"></div>}
           </div>
         </div>
