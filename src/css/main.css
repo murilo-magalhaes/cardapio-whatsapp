@@ -420,3 +420,32 @@ a.navbar-brand {
   justify-content: center;
   align-items: end;
 }
+
+.reservations {
+  padding-top: 100px;
+  padding-bottom: 150px;
+}
+
+.card-secondary {
+  background-color: var(--color-secondary);
+  border-radius: 70px;
+  position: relative;
+  padding: 90px;
+}
+
+.card-reservation {
+  height: 320px;
+  width: 320px;
+  border-radius: 120px;
+  background-color: var(--color-white);
+  position: absolute;
+  right: 100px;
+  top: 70px;
+}
+
+.reservations .img-banner img {
+  height: 250px;
+  position: absolute;
+  top: 140px;
+  right: 30px;
+}

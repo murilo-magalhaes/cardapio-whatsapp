@@ -3,6 +3,7 @@ import Banner from '@/components/Banner';
 import Services from '@/components/Services';
 import Dishes from '@/components/Dishes';
 import Testimonials from '@/components/Testimonials';
+import Reservations from '@/components/Reservations';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Services />
       <Dishes />
       <Testimonials />
+      <Reservations />
     </main>
   );
 }
