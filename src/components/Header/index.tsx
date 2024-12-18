@@ -1,8 +1,17 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
+import ShoppingCart from '@/components/ShoppingCart';
 
 export default function Header() {
+  const [shoppingCartVisible, setShoppingCartVisible] =
+    useState<boolean>(false);
+
+  const handleCloseShoppingCart = () => {
+    setShoppingCartVisible(false);
+  };
+
   return (
     <section className="header">
       <div className="container">
@@ -25,27 +34,30 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav mx-auto">
               <li className="nav-item">
-                <a className="nav-link" href="#reservas">
+                <a className="nav-link" href="#reservations">
                   <b>Reserva</b>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#servicos">
+                <a className="nav-link" href="#services">
                   <b>Serviços</b>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#cardapio">
+                <a className="nav-link" href="#dishes">
                   <b>Cardápio</b>
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#depoimentos">
+                <a className="nav-link" href="#testimonials">
                   <b>Depoimentos</b>
                 </a>
               </li>
             </ul>
-            <a className="btn btn-white btn-icon">
+            <a
+              onClick={() => setShoppingCartVisible(prevState => !prevState)}
+              className="btn btn-white btn-icon"
+            >
               <span>Meu carrinho</span>
               <span className="icon ml-1 rounded">
                 <i className="fa fa-shopping-bag"></i>
@@ -54,6 +66,11 @@ export default function Header() {
           </div>
         </nav>
       </div>
+
+      <ShoppingCart
+        isOpen={shoppingCartVisible}
+        onRequestClose={handleCloseShoppingCart}
+      />
     </section>
   );
 }
