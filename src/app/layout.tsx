@@ -8,6 +8,7 @@ import '../css/main.css';
 import '../css/fontawesome.css';
 import { PrimeReactProvider } from 'primereact/api';
 import ToastContextProvider from '@/context/AppToastContext';
+import { ShoppingCartProvider } from '@/context/ShoppingCartContext';
 
 export const metadata: Metadata = {
   title: 'Cardápio Online com Whatsapp',
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <PrimeReactProvider>
-          <ToastContextProvider>{children}</ToastContextProvider>
+          <ToastContextProvider>
+            <ShoppingCartProvider>{children}</ShoppingCartProvider>
+          </ToastContextProvider>
         </PrimeReactProvider>
       </body>
     </html>

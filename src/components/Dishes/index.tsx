@@ -4,9 +4,14 @@ import dishesMenu, { IMenu } from '@/mock/dados';
 import formatCurrency from '@/utils/numbers/formatCurrency';
 import { useState } from 'react';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
+import { useShoppingCart } from '@/hooks/useShoppingCart';
 
 export default function Dishes() {
+  const { addItem } = useShoppingCart();
+
   const [menu, setMenu] = useState<IMenu>(dishesMenu);
+
+  const [tmpCart, setTmpCart] = useState<{ id: string; qnt: number }[]>([]);
 
   const [category, setCategory] = useState<number>(0);
 
@@ -16,6 +21,41 @@ export default function Dishes() {
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
     setRows(event.rows);
+  };
+
+  const handleIncreaseQnt = (id: string) => {
+    const hasDish = tmpCart.find(d => d.id === id);
+
+    if (hasDish) {
+      const _tmpCart = tmpCart.filter(d => d.id !== id);
+      hasDish.qnt += 1;
+      _tmpCart.push(hasDish);
+      setTmpCart(_tmpCart);
+    } else {
+      setTmpCart([...tmpCart, { id, qnt: 1 }]);
+    }
+  };
+
+  const handleDecreaseQnt = (id: string) => {
+    const hasDish = tmpCart.find(d => d.id === id);
+
+    if (hasDish && hasDish.qnt > 0) {
+      const _tmpCart = tmpCart.filter(d => d.id !== id);
+      hasDish.qnt -= 1;
+      _tmpCart.push(hasDish);
+      setTmpCart(_tmpCart);
+    }
+  };
+
+  const handleAddItem = (categotyId: string, dishId: string) => {
+    const hasDish = tmpCart.find(d => d.id === dishId);
+
+    if (hasDish && hasDish.qnt > 0) {
+      addItem(categotyId, dishId, hasDish.qnt);
+
+      const _tmpCart = tmpCart.filter(d => d.id !== dishId);
+      setTmpCart(_tmpCart);
+    }
   };
 
   return (
@@ -68,14 +108,25 @@ export default function Dishes() {
                         </p>
 
                         <div className="add-cart">
-                          <span className="btn-minus">
+                          <span
+                            onClick={() => handleDecreaseQnt(d.id)}
+                            className="btn-minus"
+                          >
                             <i className="fas fa-minus"></i>
                           </span>
-                          <span className="add-qnt-items">0</span>
-                          <span className="btn-plus">
+                          <span className="add-qnt-items">
+                            {tmpCart.find(dish => dish.id === d.id)?.qnt || 0}
+                          </span>
+                          <span
+                            onClick={() => handleIncreaseQnt(d.id)}
+                            className="btn-plus"
+                          >
                             <i className="fas fa-plus"></i>
                           </span>
-                          <span className="btn btn-add">
+                          <span
+                            onClick={() => handleAddItem(d.category_id, d.id)}
+                            className="btn btn-add"
+                          >
                             <i className="fa fa-shopping-bag"></i>
                           </span>
                         </div>

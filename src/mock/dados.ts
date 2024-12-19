@@ -1,5 +1,6 @@
 export interface IDish {
   id: string;
+  category_id: string;
   img_url: string;
   title: string;
   description: string;
@@ -31,6 +32,7 @@ const dishesMenu: IMenu = {
           title: 'Gramercy Tavern',
           description: 'The Gramercy Tavern Burger - 4 Pack',
           price: 99,
+          category_id: '1',
         },
         {
           id: '2',
@@ -39,6 +41,7 @@ const dishesMenu: IMenu = {
           title: 'Shake Shack',
           description: 'Shake Shack ShackBurger® - 8 Pack',
           price: 49,
+          category_id: '1',
         },
         {
           id: '3',
@@ -47,6 +50,7 @@ const dishesMenu: IMenu = {
           title: "Gott's Roadside",
           description: "Gott's Complete Cheeseburger Kit for 4",
           price: 99,
+          category_id: '1',
         },
         {
           id: '4',
@@ -55,6 +59,7 @@ const dishesMenu: IMenu = {
           title: 'Emmy Squared',
           description: 'Le Big Matt Burger Kit for 6',
           price: 99,
+          category_id: '1',
         },
         {
           id: '5',
@@ -63,6 +68,7 @@ const dishesMenu: IMenu = {
           title: 'Shake Shack',
           description: 'Shake Shack Shackburger® - 16 Pack',
           price: 89,
+          category_id: '1',
         },
         {
           id: '6',
@@ -71,6 +77,7 @@ const dishesMenu: IMenu = {
           title: 'Peter Luger Steak House',
           description: 'USDA Prime Burgers - Pack of 18 (8oz each)',
           price: 175.95,
+          category_id: '1',
         },
         {
           id: '7',
@@ -79,6 +86,7 @@ const dishesMenu: IMenu = {
           title: 'Holeman & Finch',
           description: 'Double Stack Burger Kit for 4',
           price: 79,
+          category_id: '1',
         },
         {
           id: '8',
@@ -87,6 +95,7 @@ const dishesMenu: IMenu = {
           title: 'Pat LaFrieda Meats',
           description: 'Goldbelly "Burger Bash" Pack',
           price: 109,
+          category_id: '1',
         },
         {
           id: '9',
@@ -95,6 +104,7 @@ const dishesMenu: IMenu = {
           title: "Raoul's",
           description: 'Burger Au Poivre Kit - 4 Pack',
           price: 99,
+          category_id: '1',
         },
         {
           id: '10',
@@ -103,6 +113,7 @@ const dishesMenu: IMenu = {
           title: 'Flannery Beef',
           description: 'Goldbelly Burger Blend - 4 lbs.',
           price: 79,
+          category_id: '1',
         },
         {
           id: '11',
@@ -111,6 +122,7 @@ const dishesMenu: IMenu = {
           title: "Gott's Roadside",
           description: "Gott's Complete Cheeseburger Kit for 8",
           price: 149,
+          category_id: '1',
         },
         {
           id: '12',
@@ -119,6 +131,7 @@ const dishesMenu: IMenu = {
           title: 'Gramercy Tavern',
           description: 'Gramercy Tavern Burger + Kielbasa Combo',
           price: 149,
+          category_id: '1',
         },
       ],
     },
@@ -129,6 +142,7 @@ const dishesMenu: IMenu = {
       dishes: [
         {
           id: '13',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/2-lou-malnatis-deep-dish-pizzas.bf0fe065d251a9cca3925b269d443a27.jpg',
           title: "Lou Malnati's Pizza",
@@ -137,6 +151,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '14',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/choose-your-own-thin-crust-pizza-4-pack.b928a2008eab50c65dc87e59b5952190.jpg',
           title: "Bartolini's",
@@ -145,6 +160,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '15',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/choose-your-own-new-haven-style-pizza-6-pack.ab82828afc6172cdd4017556c15e36dd.jpg',
           title: "Zuppardi's Apizza",
@@ -153,6 +169,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '16',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/6-lou-malnatis-deep-dish-pizzas.f59993181da5d295668c8a6fb856055e.jpg',
           title: "Lou Malnati's Pizza",
@@ -161,6 +178,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '17',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/wood-fired-pizzas-best-seller-4-pack.1653bb05922ba153ac178f8365d27f6d.jpg',
           title: 'Pizzeria Bianco',
@@ -169,6 +187,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '18',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/choose-your-own-deep-dish-pizza-3-pack.4111791511244a4946bb5c9ad2c17da9.jpg',
           title: "Bartolini's",
@@ -177,6 +196,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '19',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/detroit-style-pizza-choose-your-own-3-pack.6b6f4909ffd4066d5471e70eac5c3d89.jpg',
           title: 'Emmy Squared',
@@ -185,6 +205,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '20',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/brooklyn-pizza-choose-your-own-5-pack.edc4f476a75207d0af840ce6f225f2b3.jpg',
           title: "Paesan's Pizza",
@@ -193,6 +214,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '21',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/chicago-deep-dish-pizza-4-pack.49927daafa8c147fe9bb2a113e56668e.jpg',
           title: 'My Pi Pizza',
@@ -201,6 +223,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '22',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/4-lou-malnatis-deep-dish-pizzas.8c79eb7506b5752ab3387d8174246b17.jpg',
           title: "Lou Malnati's Pizza",
@@ -209,6 +232,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '23',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/choose-your-own-pizza-3-pack.fcf7a43e38593007ef2857fe16d6dd26.jpg',
           title: "Tony's Pizza Napoletana",
@@ -217,6 +241,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '24',
+          category_id: '2',
           img_url:
             '/assets/images/cardapio/pizzas/plain-thin-crust-pizza-4-pack.5540e9d166db2f0853643c6517e4a225.jpg',
           title: 'The Columbia Inn',
@@ -232,6 +257,7 @@ const dishesMenu: IMenu = {
       dishes: [
         {
           id: '25',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/joes-kc-ribs-brisket-and-burnt-ends.6710e994980e485e6441b794717ad6fb.jpg',
           title: "Joe's KC BBQ",
@@ -240,6 +266,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '26',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/carolina-bbq-oink-sampler.1340b5a10cedc238cb2280306dd1d5a5.jpg',
           title: 'Kings BBQ',
@@ -248,6 +275,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '27',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/texas-monthlys-1-bbq-brisket.1006a061be7acae03992e420fbca995a.jpg',
           title: "Snow's BBQ",
@@ -256,6 +284,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '28',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/whole-brisket-texas-barbecue-bbq-sauce.e07ee4818b20ed43d217bf67fedd41ce.jpg',
           title: 'Franklin Barbecue',
@@ -264,6 +293,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '29',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/whole-texas-smoked-brisket.a5558a25381e271408e197936e7985d8.jpg',
           title: "Terry Black's Barbecue",
@@ -272,6 +302,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '30',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/mini-trinity-bbq-combo-brisket-ribs-and-links.245582f593bf64b23b57dfca2be18cfd.jpg',
           title: "Bludso's BBQ",
@@ -280,6 +311,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '31',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/blue-smoke-baby-back-ribs-backyard-barbecue-chicken-combo.a95a3e632ae324f719738a2a5c1dff6e.jpg',
           title: 'Blue Smoke',
@@ -289,6 +321,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '32',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/bbq-meat-lovers-special-for-10.36ca670fda4bfa783c2ea9165e068d26.jpg',
           title: 'Kings BBQ',
@@ -297,6 +330,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '33',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/the-big-ugly-bbq-dinner-for-6.2dfae7818811adddce85cc1a910881a0.jpg',
           title: 'Ugly Drum',
@@ -305,6 +339,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '34',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/mighty-quinns-bbq-sampler-pack.1bfe4a0665edc565756f5241bf25840e.jpg',
           title: "Mighty Quinn's BBQ",
@@ -313,6 +348,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '35',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/post-oak-smoked-usda-prime-half-brisket.6f17178dde7d806670bcc73ff11762b3.jpg',
           title: 'Southside Market & Barbeque',
@@ -321,6 +357,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '36',
+          category_id: '3',
           img_url:
             '/assets/images/cardapio/churrasco/best-of-texas-bbq-combo-serves-14.7ae90266335e539c67e77fed14b43029.jpg',
           title: "Snow's BBQ",
@@ -329,7 +366,6 @@ const dishesMenu: IMenu = {
         },
       ],
     },
-
     {
       id: '4',
       title: 'Steaks',
@@ -337,6 +373,7 @@ const dishesMenu: IMenu = {
       dishes: [
         {
           id: '37',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/california-reserve-filet-mignon-steaks-gift-box.bf226e317aad85f47897ae7e325f790d.jpg',
           title: 'Flannery Beef',
@@ -345,6 +382,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '38',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/valentines-steaks-and-cakes-dinner-for-2.0c63dab635eed46209455dc33cd25ea8.jpg',
           title: 'Chesapeake Bay Gourmet',
@@ -353,6 +391,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '39',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/holiday-sampler-9-pack.2de75ca80282ffe9d064eb757ff7a5a1.jpg',
           title: 'Saltbrick Prime',
@@ -361,6 +400,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '40',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/bone-in-rib-steak.b13d9d4233035767605f0de9acdce1ab.jpg',
           title: 'Old Homestead Steakhouse',
@@ -369,6 +409,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '41',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/american-wagyu-gold-grade-sirloins.040dbeb8f8e615b91fa7e513e3dc089c.jpg',
           title: 'Snake River Farms',
@@ -377,6 +418,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '42',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/peter-luger-steak-pack-b.9feb0300e6be2dfecfa314f2006a2183.jpg',
           title: 'Peter Luger Steak House',
@@ -385,6 +427,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '43',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/ribeye-prime-steak-gift-box.e74cb016baabbb2df73861de8150f29c.jpg',
           title: "Churchill's Steakhouse",
@@ -393,6 +436,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '44',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/usda-prime-black-angus-filet-mignon-barrel-cut.6ee213799e7d1848763d12edca18e3b1.jpg',
           title: 'Pat LaFrieda Meats',
@@ -402,6 +446,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '45',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/california-reserve-ribeye-steak-12-oz.d367c5ae72dd9f89e170662104bef4fc.jpg',
           title: 'Flannery Beef',
@@ -410,6 +455,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '46',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/dry-aged-boneless-ribeye-steak-dinner-for-4.81c3bdc05fe6bdb2c2214709863120e0.jpg',
           title: 'Chef Francis Mallmann',
@@ -418,6 +464,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '47',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/california-reserve-filet-mignon-steak.ff15071964ec8141d30c2ba05fb117e0.jpg',
           title: 'Flannery Beef',
@@ -426,6 +473,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '48',
+          category_id: '4',
           img_url:
             '/assets/images/cardapio/steaks/mesquite-smoked-peppered-beef-tenderloin.5c314418a1f75c7057eed686e2fad46f.jpg',
           title: 'Perini Ranch Steakhouse',
@@ -434,7 +482,6 @@ const dishesMenu: IMenu = {
         },
       ],
     },
-
     {
       id: '5',
       title: 'Bebidas',
@@ -442,6 +489,7 @@ const dishesMenu: IMenu = {
       dishes: [
         {
           id: '49',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/hong-kong-boba-tea-kit-for-6.63841de36d8e5edfafa13023fc303285.jpg',
           title: 'New Territories',
@@ -450,6 +498,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '50',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/guys-caliente-margaritas-for-12.ca8c6bc06b8f1039549385ffcebc749d.jpg',
           title: 'Guy Fieri',
@@ -458,6 +507,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '51',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/woodford-reserve-mint-julep-syrup.ef523ac7cbae5f4aba6b058207f490d2.jpg',
           title: 'Woodford Reserve',
@@ -466,6 +516,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '52',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/new-orleans-hurricane-mix.4613584fc65cb0787024dd24d2a8f4b3.jpg',
           title: "Franco's Hurricane Mix",
@@ -474,6 +525,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '53',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/margarita-mix.bd48a000d589d3147b14790af3c33fcd.jpg',
           title: 'Johnny Sanchez',
@@ -482,6 +534,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '54',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/woodford-reserve-mint-julep-syrup-2-pack.0ac76063f151988113cbaabd0eaa829f.jpg',
           title: 'Woodford Reserve',
@@ -490,6 +543,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '55',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/unicorn-parade-milkshake-kit-for-2.9052d04c1cf25b29442048bd3e535f21.jpg',
           title: 'New Territories',
@@ -498,6 +552,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '56',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/chickpea-chiller-kit-for-6.4310765c71ba524b5462ea9330d32446.jpg',
           title: 'The Hummus & Pita Co.',
@@ -506,6 +561,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '57',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/old-honey-barn-mint-julep-mixer-200ml.e0b131d6d9b69963706b43fd4334ab74.jpg',
           title: 'Old Honey Barn Mint Julep',
@@ -514,6 +570,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '58',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/kentucky-derby-mint-julep-gift-set.79720eda4e9c8e3fcf9ecb5c79827f2c.jpg',
           title: 'Woodford Reserve',
@@ -522,6 +579,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '59',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/weekender-charleston-bloody-mary-mix-bold-and-spicy.c372868c9937e407a299a22001e210e2.jpg',
           title: 'Charleston Beverage Company',
@@ -530,6 +588,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '60',
+          category_id: '5',
           img_url:
             '/assets/images/cardapio/bebidas/nola-cold-brew-concentrate-bag-in-box.3df6fde8bd83f29235565984ae8ed22b.jpg',
           title: "Grady's Cold Brew",
@@ -546,6 +605,7 @@ const dishesMenu: IMenu = {
       dishes: [
         {
           id: '61',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/german-chocolate-killer-brownie-tin-pack.5ebc34160f28767a9d94c4da2e04c4b9.jpg',
           title: 'Killer Brownie®',
@@ -554,6 +614,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '62',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/jacques-world-famous-chocolate-chip-cookies-6-pack.2217a14c443602493bba88aa9335319a.jpg',
           title: 'Jacques Torres Chocolate',
@@ -562,6 +623,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '63',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/original-cannoli-pie.4cb5b9ba82f57b69b90765fd9f07aa1a.jpg',
           title: 'The Cannoli Pie Company',
@@ -570,6 +632,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '64',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/sea-salted-caramel-swirl-cheesecake.e2825335433fb7a272a5d77649a6849e.jpg',
           title: 'Cotton Blues Cheesecake Company',
@@ -578,6 +641,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '65',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/brooklyn-blackout-cookie-brownie-combo-pack-2-tins.d8805325baf6b23b4f01d119dc4531a7.jpg',
           title: 'Brooklyn Blackout Company',
@@ -586,6 +650,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '66',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/best-seller-cupcake-dozen.f93b21993f6a2da11c975d45b9b0d08f.jpg',
           title: 'Crave Cupcakes',
@@ -594,6 +659,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '67',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/choose-your-own-ice-cream-donuts-6-pack.24d0b44765a7c54237fcd7ea9d9d8093.jpg',
           title: 'Elegant Desserts',
@@ -602,6 +668,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '68',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/jewish-classics-dessert-pack.7d4b76630f2fe75dcb7bbcf2501b7390.jpg',
           title: 'Ess-a-Bagel',
@@ -610,6 +677,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '69',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/dessert-bar-care-package.324aa28fe98c9dc67b75aac43376902e.jpg',
           title: 'Bread and Roses Bakery',
@@ -618,6 +686,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '70',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/donut-cookies-12-pack.46f42c61c4a79fd2051a99b2f23e890e.jpg',
           title: "Stan's Donuts",
@@ -626,6 +695,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '71',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/gulab-jamun-ice-cream-cakes-2-pack.c45b4d0750ad22d741f84dc1f26d20e7.jpg',
           title: 'Malai Ice Cream',
@@ -634,6 +704,7 @@ const dishesMenu: IMenu = {
         },
         {
           id: '72',
+          category_id: '6',
           img_url:
             '/assets/images/cardapio/sobremesas/jacques-world-famous-chocolate-chip-cookies-12-pack.3b373bdd67cd25084182c21499f675d1.jpg',
           title: 'Jacques Torres Chocolate',
