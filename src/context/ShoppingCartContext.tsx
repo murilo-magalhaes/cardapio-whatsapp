@@ -8,10 +8,27 @@ interface ICartItem extends IDish {
   total: number;
 }
 
+interface ICartSummary {
+  qntProducts: number;
+  qntItems: number;
+  delivery: number;
+  subTotal: number;
+  total: number;
+}
+
+const emptySummary: ICartSummary = {
+  qntProducts: 0,
+  qntItems: 0,
+  delivery: 0,
+  subTotal: 0,
+  total: 0,
+};
+
 interface IContextData {
   cart: ICartItem[];
+  summary: ICartSummary;
   addItem: (categotyId: string, dishId: string, qnt: number) => void;
-  removeItem: (categotyId: string, dishId: string, qnt: number) => void;
+  removeItem: (id: string, qnt: number) => void;
   clearCart: () => void;
 }
 
@@ -24,13 +41,27 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
 
   const [cart, setCart] = useState<ICartItem[]>([]);
 
+  const [summary, setSummary] = useState<ICartSummary>(emptySummary);
+
   useEffect(() => {
     loadMenu();
   }, []);
 
   useEffect(() => {
     console.log(cart);
+    recalculateSummary();
   }, [cart]);
+
+  const recalculateSummary = () => {
+    const delivery = 5;
+    setSummary({
+      delivery,
+      qntItems: cart.reduce((a, i) => (a += i.qnt), 0),
+      qntProducts: cart.length,
+      subTotal: cart.reduce((a, i) => (a += i.total), 0),
+      total: cart.reduce((a, i) => (a += i.total), 0) + delivery,
+    });
+  };
 
   const loadMenu = async () => {
     // Mudar para busca de pratos reais
@@ -58,13 +89,32 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
       }
     }
   };
-  const removeItem = (categotyId: string, dishId: string, qnt: number) => {};
-  const clearCart = () => {};
+  const removeItem = (id: string, qnt: number) => {
+    const hasDish = cart.find(d => d.id === id);
+
+    if (hasDish && hasDish.qnt > 0) {
+      const _cart = cart.filter(d => d.id !== id);
+
+      if (qnt < hasDish.qnt) {
+        hasDish.qnt -= qnt;
+        hasDish.total = hasDish.price * hasDish.qnt;
+
+        _cart.push(hasDish);
+      }
+
+      setCart(_cart);
+    }
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
 
   return (
     <ShoppingCartContext.Provider
       value={{
         cart,
+        summary,
         addItem,
         removeItem,
         clearCart,

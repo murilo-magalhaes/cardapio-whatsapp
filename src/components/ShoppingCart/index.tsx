@@ -1,5 +1,9 @@
 'use client';
 import ufsOpts from '@/dtos/ufsOpts';
+import useToastContext from '@/hooks/toast';
+import { useShoppingCart } from '@/hooks/useShoppingCart';
+import formatCurrency from '@/utils/numbers/formatCurrency';
+import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
@@ -12,13 +16,24 @@ interface IProps {
 }
 
 export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
+  // refs & toast
+  const toast = useToastContext();
+
+  // states
+  const { cart, summary, addItem, removeItem, clearCart } = useShoppingCart();
+
   const [step, setStep] = useState<number>(1);
 
+  // effects
   useEffect(() => {
-    if (isOpen) {
-      setStep(1);
+    if (isOpen && step !== 1) {
+      setStep(1); // Apenas se necessário para evitar renderizações redundantes.
     }
   }, [isOpen]);
+
+  // functions
+
+  // templates
 
   return (
     <Dialog
@@ -27,6 +42,7 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
       draggable={false}
       visible={isOpen}
       closable={false}
+      ref={null}
     >
       <div className="modal-full">
         <div className="m-header">
@@ -44,41 +60,79 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
             </div>
 
             <p className="title-cart mt-4">
-              <b>Seu carrinho:</b>
+              <b>
+                {step === 1
+                  ? 'Seu carrinho:'
+                  : step === 2
+                  ? 'Endereço de entrega:'
+                  : 'Resumo do pedido:'}
+              </b>
             </p>
           </div>
         </div>
         <div className="m-body">
+          {cart.length === 0 && (
+            <div
+              className="flex h-full justify-content-center align-items-center"
+              style={{ flexDirection: 'column' }}
+            >
+              <p className="text-center">
+                <b>Seu carrinho está vazio...</b>
+              </p>
+              <a
+                href="#dishes"
+                onClick={onRequestClose}
+                className="btn btn-yellow"
+              >
+                Voltar ao cardápio
+              </a>
+            </div>
+          )}
           <div className="container">
             {step === 1 && (
               <div className="row mx-0">
-                <div className="col-12 item-cart">
-                  <div className="img-product">
-                    <img src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg" />
-                  </div>
+                {cart.map((d, i) => (
+                  <div key={i} className="col-12 item-cart">
+                    <div className="img-product">
+                      <img src={d.img_url} />
+                    </div>
 
-                  <div className="data-product">
-                    <p className="title-product">
-                      <b>Nome do produto</b>
-                    </p>
-                    <p className="price-product">
-                      <b>R$149,90</b>
-                    </p>
-                  </div>
+                    <div className="data-product">
+                      <p className="title-product">
+                        <b>{d.title}</b>
+                      </p>
+                      <p className="price-product">
+                        <b>{formatCurrency(d.total)}</b>
+                      </p>
+                    </div>
 
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-remove">
-                      <i className="fa fa-times"></i>
-                    </span>
+                    <div className="add-cart">
+                      <span
+                        onClick={() => {
+                          removeItem(d.id, 1);
+                        }}
+                        className="btn-minus"
+                      >
+                        <i className="fas fa-minus"></i>
+                      </span>
+                      <span className="add-qnt-items">{d.qnt}</span>
+                      <span
+                        onClick={() => addItem(d.category_id, d.id, 1)}
+                        className="btn-plus"
+                      >
+                        <i className="fas fa-plus"></i>
+                      </span>
+                      <span
+                        onClick={() => {
+                          removeItem(d.id, d.qnt);
+                        }}
+                        className="btn btn-remove"
+                      >
+                        <i className="fa fa-times"></i>
+                      </span>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             )}
             {step === 2 && (
@@ -204,14 +258,14 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
             <div className="container-total text-right mb-4">
               <p className="mb-0">
                 <span>Subtotal: </span>
-                <span>R$ 95,00</span>
+                <span>{formatCurrency(summary.subTotal)}</span>
               </p>
 
               <p className="mb-0 text-delivery">
                 <span>
                   <i className="fas fa-motorcycle"></i> Entrega
                 </span>
-                <span> + R$ 5,00</span>
+                <span> + {formatCurrency(summary.delivery)}</span>
               </p>
 
               <p className="mb-0 text-total">
@@ -219,18 +273,27 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                   <b>Total: </b>
                 </span>
                 <span className="value-total">
-                  <b>R$ 100,00</b>
+                  <b>{formatCurrency(summary.total)}</b>
                 </span>
               </p>
             </div>
 
+            <Button
+              disabled={cart.length === 0}
+              onClick={clearCart}
+              className="btn btn-remove p-3 float-start"
+              label="Limpar carrinho"
+              icon="fa fa-trash"
+            />
+
             {step === 1 && (
-              <a
+              <Button
+                disabled={cart.length === 0}
                 onClick={() => setStep(prevState => prevState + 1)}
                 className="btn btn-yellow float-end"
               >
                 Continuar
-              </a>
+              </Button>
             )}
             {step === 2 && (
               <a

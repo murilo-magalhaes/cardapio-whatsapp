@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 export default function Banner() {
   return (
-    <section className="banner" id="banner">
+    <section className="banner">
       <div className="container">
         <div className="row">
           <div className="col-6">

@@ -1,19 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ShoppingCart from '@/components/ShoppingCart';
 import { useShoppingCart } from '@/hooks/useShoppingCart';
 
 export default function Header() {
-  const { cart } = useShoppingCart();
-
-  const [qntItems, setQntItems] = useState<number>(0);
-
-  useEffect(() => {
-    const qnt = cart.reduce((a, i) => (a += i.qnt), 0);
-    setQntItems(qnt);
-  }, [cart]);
+  const { summary } = useShoppingCart();
 
   const [shoppingCartVisible, setShoppingCartVisible] =
     useState<boolean>(false);
@@ -24,6 +17,10 @@ export default function Header() {
 
   return (
     <section className="header">
+      <a onClick={() => setShoppingCartVisible(true)} className="btn-cart">
+        <div className="badge-total-cart">{summary.qntItems}</div>
+        <i className="fa fa-shopping-bag"></i>
+      </a>
       <div className="container">
         <nav className="navbar navbar-expand-lg px-0">
           <a href="#" className="navbar-brand">
@@ -65,16 +62,16 @@ export default function Header() {
               </li>
             </ul>
             <a
-              onClick={() => setShoppingCartVisible(prevState => !prevState)}
+              onClick={() => setShoppingCartVisible(true)}
               className="btn btn-white btn-icon"
             >
-              <span>Meu carrinho</span>
+              <span className="mr-2">Meu carrinho</span>
               <span
                 className="icon ml-1 rounded"
                 style={{ position: 'relative' }}
               >
-                {qntItems > 0 && (
-                  <div className="badge-total-cart">{qntItems}</div>
+                {summary.qntItems > 0 && (
+                  <div className="badge-total-cart">{summary.qntItems}</div>
                 )}
                 <i className="fa fa-shopping-bag"></i>
               </span>

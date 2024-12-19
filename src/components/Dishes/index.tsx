@@ -64,11 +64,10 @@ export default function Dishes() {
     }
 
     if (hasDish) {
-      addItem(categotyId, dishId, hasDish.qnt);
-
       const _tmpCart = tmpCart.filter(d => d.id !== dishId);
       setTmpCart(_tmpCart);
 
+      addItem(categotyId, dishId, hasDish.qnt);
       toast('success', 'Sucesso', 'Item adicionado ao carrinho com sucesso!');
     }
   };
@@ -108,7 +107,7 @@ export default function Dishes() {
           </div>
 
           <div className="col-12">
-            <div className="row" id="itemsDishes">
+            <div className="row">
               {dishesMenu.categories[category].dishes.map((d, i) => {
                 if (i >= first && i < first + rows)
                   return (
@@ -141,7 +140,9 @@ export default function Dishes() {
                             <i className="fas fa-plus"></i>
                           </span>
                           <span
-                            onClick={() => handleAddItem(d.category_id, d.id)}
+                            onClick={e => {
+                              handleAddItem(d.category_id, d.id);
+                            }}
                             className="btn btn-add"
                           >
                             <i className="fa fa-shopping-bag"></i>

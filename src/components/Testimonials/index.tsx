@@ -18,7 +18,7 @@ export default function Testimonials() {
               <b>O que dizem sobre nós?</b>
             </h1>
             <div className="mb-5">
-              <div className="testimonial" id="testimonial-1">
+              <div className="testimonial">
                 <div className="container-data-testimonial">
                   <div className="img-testimonial"></div>
                   <div>
@@ -45,7 +45,7 @@ export default function Testimonials() {
                 </p>
               </div>
 
-              <div className="testimonial hidden" id="testimonial-2">
+              <div className="testimonial hidden">
                 <div className="container-data-testimonial">
                   <div className="img-testimonial"></div>
                   <div>
@@ -72,7 +72,7 @@ export default function Testimonials() {
                 </p>
               </div>
 
-              <div className="testimonial hidden" id="testimonial-3">
+              <div className="testimonial hidden">
                 <div className="container-data-testimonial">
                   <div className="img-testimonial"></div>
                   <div>
