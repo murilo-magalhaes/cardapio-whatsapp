@@ -6,6 +6,7 @@ import Testimonials from '@/components/Testimonials';
 import Reservations from '@/components/Reservations';
 import Footer from '@/components/Footer';
 import ScrollToTopButton from '@/components/Buttons/ScrollToTopButton';
+import FLoatButtonCart from '@/components/Buttons/FloatButtonCart';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Reservations />
       <Footer />
       <ScrollToTopButton />
+      <FLoatButtonCart />
     </main>
   );
 }

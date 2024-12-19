@@ -38,8 +38,8 @@ const ScrollToTopButton: React.FC = () => {
           onClick={scrollToTop}
           style={{
             position: 'fixed',
-            bottom: '20px',
-            right: '20px',
+            bottom: '50px',
+            left: '30px',
             zIndex: 1000,
           }}
         />

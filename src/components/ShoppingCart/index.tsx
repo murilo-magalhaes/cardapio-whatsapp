@@ -24,10 +24,11 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
     <Dialog
       className="w-11 h-full"
       onHide={onRequestClose}
+      draggable={false}
       visible={isOpen}
       closable={false}
     >
-      <div className="modal-full" id="modalShoppingCart">
+      <div className="modal-full">
         <div className="m-header">
           <div className="container">
             <a

@@ -5,8 +5,13 @@ import formatCurrency from '@/utils/numbers/formatCurrency';
 import { useState } from 'react';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { useShoppingCart } from '@/hooks/useShoppingCart';
+import useToastContext from '@/hooks/toast';
 
 export default function Dishes() {
+  // refs & toast
+  const toast = useToastContext();
+
+  // states
   const { addItem } = useShoppingCart();
 
   const [menu, setMenu] = useState<IMenu>(dishesMenu);
@@ -18,6 +23,9 @@ export default function Dishes() {
   const [first, setFirst] = useState<number>(0);
   const [rows, setRows] = useState<number>(8);
 
+  // effects
+
+  // functions
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setFirst(event.first);
     setRows(event.rows);
@@ -50,13 +58,22 @@ export default function Dishes() {
   const handleAddItem = (categotyId: string, dishId: string) => {
     const hasDish = tmpCart.find(d => d.id === dishId);
 
-    if (hasDish && hasDish.qnt > 0) {
+    if (!hasDish || hasDish.qnt === 0) {
+      toast('warn', 'Alerta', 'Por favor, informe a quantidade que deseja.');
+      return;
+    }
+
+    if (hasDish) {
       addItem(categotyId, dishId, hasDish.qnt);
 
       const _tmpCart = tmpCart.filter(d => d.id !== dishId);
       setTmpCart(_tmpCart);
+
+      toast('success', 'Sucesso', 'Item adicionado ao carrinho com sucesso!');
     }
   };
+
+  // templates
 
   return (
     <section className="dishes" id="dishes">

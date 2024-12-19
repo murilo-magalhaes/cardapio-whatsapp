@@ -1,10 +1,20 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShoppingCart from '@/components/ShoppingCart';
+import { useShoppingCart } from '@/hooks/useShoppingCart';
 
 export default function Header() {
+  const { cart } = useShoppingCart();
+
+  const [qntItems, setQntItems] = useState<number>(0);
+
+  useEffect(() => {
+    const qnt = cart.reduce((a, i) => (a += i.qnt), 0);
+    setQntItems(qnt);
+  }, [cart]);
+
   const [shoppingCartVisible, setShoppingCartVisible] =
     useState<boolean>(false);
 
@@ -59,7 +69,13 @@ export default function Header() {
               className="btn btn-white btn-icon"
             >
               <span>Meu carrinho</span>
-              <span className="icon ml-1 rounded">
+              <span
+                className="icon ml-1 rounded"
+                style={{ position: 'relative' }}
+              >
+                {qntItems > 0 && (
+                  <div className="badge-total-cart">{qntItems}</div>
+                )}
                 <i className="fa fa-shopping-bag"></i>
               </span>
             </a>
