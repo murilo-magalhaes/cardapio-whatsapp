@@ -17,10 +17,12 @@ export default function Header() {
 
   return (
     <section className="header">
-      <a onClick={() => setShoppingCartVisible(true)} className="btn-cart">
-        <div className="badge-total-cart">{summary.qntItems}</div>
-        <i className="fa fa-shopping-bag"></i>
-      </a>
+      {summary.qntItems > 0 && (
+        <a onClick={() => setShoppingCartVisible(true)} className="btn-cart">
+          <div className="badge-total-cart">{summary.qntItems}</div>
+          <i className="fa fa-shopping-bag"></i>
+        </a>
+      )}
       <div className="container">
         <nav className="navbar navbar-expand-lg px-0">
           <a href="#" className="navbar-brand">

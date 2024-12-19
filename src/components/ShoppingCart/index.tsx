@@ -1,30 +1,74 @@
 'use client';
+import { ICity } from '@/dtos/ICityDTO';
 import ufsOpts from '@/dtos/ufsOpts';
 import useToastContext from '@/hooks/toast';
 import { useShoppingCart } from '@/hooks/useShoppingCart';
-import formatCurrency from '@/utils/numbers/formatCurrency';
+import api, { apiCep } from '@/services/api';
+import messageRequestError from '@/utils/error/messageRequestError';
+import formatCurrency from '@/utils/number/formatCurrency';
+import { AxiosError, AxiosResponse } from 'axios';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { Dropdown } from 'primereact/dropdown';
 import { InputMask } from 'primereact/inputmask';
 import { InputText } from 'primereact/inputtext';
 import { useEffect, useState } from 'react';
+import Progress from '../ProgressBar';
+import { InputDropDown } from '../Inputs/InputDropDown';
+import { Form } from '@unform/web';
+import justNumbers from '@/utils/string/justNumbers';
+import stringIsNotNull from '@/utils/string/stringIsNotNull';
 
 interface IProps {
   isOpen: boolean;
   onRequestClose: () => void;
 }
 
+interface IAddress {
+  cep: string;
+  street: string;
+  neighborhood: string;
+  number: string;
+  city_id: string;
+  city?: ICity;
+  complement: string;
+  uf: string;
+}
+
+const emptyAddress: IAddress = {
+  cep: '',
+  street: '',
+  neighborhood: '',
+  number: 'S/N',
+  complement: '',
+  uf: 'GO',
+  city_id: '',
+};
+
 export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
   // refs & toast
   const toast = useToastContext();
 
   // states
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+
   const { cart, summary, addItem, removeItem, clearCart } = useShoppingCart();
 
   const [step, setStep] = useState<number>(1);
 
+  const [address, setAddress] = useState<IAddress>(emptyAddress);
+
+  const [cities, setCities] = useState<ICity[]>([]);
+  console.log({ cities });
+
   // effects
+  useEffect(() => {
+    loadCities();
+  }, []);
+
+  useEffect(() => {
+    if (justNumbers(address.cep).length === 8) loadAddress(address.cep);
+  }, [address.cep]);
+
   useEffect(() => {
     if (isOpen && step !== 1) {
       setStep(1); // Apenas se necessário para evitar renderizações redundantes.
@@ -32,6 +76,83 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
   }, [isOpen]);
 
   // functions
+  const loadCities = async () => {
+    setIsLoad(true);
+    await api
+      .post(`/cities/list`, {
+        pagination: { page: 1, perPage: 10000, status: ['A'] },
+      })
+      .then((res: AxiosResponse) => {
+        if (res.data) {
+          setCities(
+            res.data.map((i: any) => {
+              return {
+                id: i.id,
+                ibge: i.ibge,
+                siafi: i.siafi,
+                uf: i.uf.sigla,
+
+                label: i.name,
+                value: i.id,
+              };
+            }),
+          );
+        }
+      })
+      .catch((e: AxiosError) => {
+        toast('warn', 'Alerta', messageRequestError(e));
+      })
+      .finally(() => {
+        setIsLoad(false);
+      });
+  };
+
+  const loadAddress = async (cep: string) => {
+    cep = justNumbers(cep);
+
+    if (!cep || cep.length !== 8) {
+      toast('warn', 'Alerta', 'Informe um CEP válido!');
+      return;
+    }
+
+    setIsLoad(true);
+
+    await apiCep
+      .get(`/${cep}/json/`)
+      .then((res: AxiosResponse) => {
+        if (res.data) {
+          const city = cities.find(i => i.ibge === res.data.ibge);
+
+          setAddress({
+            ...address,
+            cep,
+            street: stringIsNotNull(res.data.logradouro)
+              ? res.data.logradouro
+              : address.street,
+            complement: stringIsNotNull(res.data.complemento)
+              ? res.data.complemento
+              : address.complement,
+            neighborhood: stringIsNotNull(res.data.bairro)
+              ? res.data.bairro
+              : address.neighborhood,
+            city_id: city ? city.id : address.city_id,
+            city: city ? city : address.city,
+          });
+
+          toast(
+            'info',
+            'Endereço',
+            'Dados de endereço encontrados com sucesso!',
+          );
+        }
+      })
+      .catch((e: AxiosError) => {
+        toast('warn', 'Alerta', messageRequestError(e));
+      })
+      .finally(() => {
+        setIsLoad(false);
+      });
+  };
 
   // templates
 
@@ -58,6 +179,8 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
               <div className={`step ${step >= 2 ? 'active' : ''}`}>2</div>
               <div className={`step ${step === 3 ? 'active' : ''}`}>3</div>
             </div>
+
+            <Progress isLoad={isLoad} className="mt-6" />
 
             <p className="title-cart mt-4">
               <b>
@@ -136,7 +259,14 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
               </div>
             )}
             {step === 2 && (
-              <div className="row mx-0">
+              <Form
+                onSubmit={() => {}}
+                ref={null}
+                className="row mx-0"
+                placeholder={''}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}
+              >
                 <div className="col-4">
                   <div className="form-group container-cep">
                     <label htmlFor="cep">CEP:</label>
@@ -144,6 +274,12 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                       name="cep"
                       mask="99.999-999"
                       className="form-control"
+                      placeholder="Ex.: 00.000-000"
+                      value={address.cep}
+                      onChange={e => {
+                        if (e.target.value && e.target.value !== null)
+                          setAddress({ ...address, cep: e.target.value });
+                      }}
                     />
                     <a className="btn btn-yellow btn-sm">
                       <i className="fa fa-search"></i>
@@ -155,50 +291,100 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
 
                 <div className="col-6">
                   <div className="form-group">
-                    <label htmlFor="street">Endereço:</label>
-                    <InputText name="street" className="form-control" />
+                    <label htmlFor="street">Rua/Avenida:</label>
+                    <InputText
+                      name="street"
+                      className="form-control"
+                      placeholder="Ex.: Rua da Amizade"
+                      value={address.street}
+                      onChange={e =>
+                        setAddress({ ...address, street: e.target.value })
+                      }
+                    />
                   </div>
                 </div>
 
                 <div className="col-4">
                   <div className="form-group">
                     <label htmlFor="neighborhood">Bairro:</label>
-                    <InputText name="neighborhood" className="form-control" />
+                    <InputText
+                      name="neighborhood"
+                      className="form-control"
+                      placeholder="Ex.: Bairro da Saudade"
+                      value={address.neighborhood}
+                      onChange={e =>
+                        setAddress({ ...address, neighborhood: e.target.value })
+                      }
+                    />
                   </div>
                 </div>
 
                 <div className="col-2">
                   <div className="form-group">
                     <label htmlFor="number">Número:</label>
-                    <InputText name="number" className="form-control" />
+                    <InputText
+                      name="number"
+                      className="form-control"
+                      placeholder="Ex.: 000"
+                      value={address.number}
+                      onChange={e =>
+                        setAddress({ ...address, number: e.target.value })
+                      }
+                    />
                   </div>
                 </div>
 
-                <div className="col-6">
+                <div className="col-5">
                   <div className="form-group">
                     <label htmlFor="city">Cidade:</label>
-                    <InputText name="city" className="form-control" />
+                    <InputDropDown
+                      name="city"
+                      options={
+                        cities && cities.length > 0
+                          ? cities.filter(c => c.uf === address.city?.uf)
+                          : []
+                      }
+                      className="form-control flex py-1 px-0"
+                      placeholder="Selecione..."
+                      value={address.city_id}
+                      onChange={e =>
+                        setAddress({ ...address, city_id: e.value })
+                      }
+                    />
                   </div>
                 </div>
 
                 <div className="col-4">
                   <div className="form-group">
                     <label htmlFor="complement">Complemento:</label>
-                    <InputText name="complement" className="form-control" />
-                  </div>
-                </div>
-
-                <div className="col-2">
-                  <div className="form-group">
-                    <label htmlFor="uf">UF:</label>
-                    <Dropdown
-                      name="uf"
-                      options={ufsOpts}
-                      className="form-control flex py-1"
+                    <InputText
+                      name="complement"
+                      className="form-control"
+                      placeholder="Ex.: Qd 00 Lt 00, Apto 000"
+                      value={address.complement}
+                      onChange={e =>
+                        setAddress({ ...address, complement: e.target.value })
+                      }
                     />
                   </div>
                 </div>
-              </div>
+
+                <div className="col-3">
+                  <div className="form-group">
+                    <label htmlFor="uf">UF:</label>
+                    <InputDropDown
+                      name="uf"
+                      options={ufsOpts}
+                      className="form-control flex py-1 px-0"
+                      placeholder="Selecione..."
+                      value={address.uf}
+                      onChange={e => {
+                        setAddress({ ...address, uf: e.value });
+                      }}
+                    />
+                  </div>
+                </div>
+              </Form>
             )}
             {step === 3 && (
               <div className="row mx-0">

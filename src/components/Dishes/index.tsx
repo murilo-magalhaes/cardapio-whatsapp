@@ -1,7 +1,7 @@
 'use client';
 
 import dishesMenu, { IMenu } from '@/mock/dados';
-import formatCurrency from '@/utils/numbers/formatCurrency';
+import formatCurrency from '@/utils/number/formatCurrency';
 import { useState } from 'react';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
 import { useShoppingCart } from '@/hooks/useShoppingCart';
