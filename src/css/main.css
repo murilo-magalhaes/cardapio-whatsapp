@@ -51,6 +51,10 @@ a.navbar-brand {
   padding-right: 75px !important;
 }
 
+.btn {
+  cursor: pointer !important;
+}
+
 .btn.btn-white {
   background-color: var(--color-white);
   color: var(--color-black) !important;
@@ -216,6 +220,7 @@ a.navbar-brand {
 }
 
 .dishes {
+  position: relative; /* Cria um contexto para a div de fundo */
   padding-top: 50px;
   padding-bottom: 150px;
 }
@@ -223,9 +228,13 @@ a.navbar-brand {
 .background-dishes {
   position: absolute;
   left: 0;
+  top: 0; /* Ajuste para alinhar ao topo da seção */
   right: 0;
   height: 500px;
   background-image: url('../../public/assets/images/bg-icons-1.png');
+  background-size: cover; /* Faz com que a imagem ocupe todo o espaço */
+  background-repeat: no-repeat; /* Evita repetição da imagem */
+  z-index: -1; /* Coloca a div atrás de outros elementos */
 }
 
 .container-menu {

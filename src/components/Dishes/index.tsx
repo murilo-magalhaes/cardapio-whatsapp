@@ -1,18 +1,20 @@
 'use client';
 
 import dishesMenu, { IMenu } from '@/mock/dados';
+import formatCurrency from '@/utils/numbers/formatCurrency';
 import { useState } from 'react';
 
 export default function Dishes() {
   const [menu, setMenu] = useState<IMenu>(dishesMenu);
 
-  const [sectionMenu, setSectionMenu] = useState<number>(1);
+  const [category, setCategory] = useState<number>(0);
 
-  console.log(sectionMenu);
+  console.log(category);
 
   return (
     <section className="dishes" id="dishes">
       <div className="background-dishes"></div>
+
       <div className="container">
         <div className="row">
           <div className="col-12 text-center mb-5">
@@ -24,222 +26,52 @@ export default function Dishes() {
             </h1>
           </div>
           <div className="col-12 container-menu">
-            <a
-              onClick={() => setSectionMenu(1)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 1 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-hamburger"></i> {'  '}Burgers
-            </a>
-
-            <a
-              onClick={() => setSectionMenu(2)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 2 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-pizza-slice"></i> {'  '}Pizzas
-            </a>
-
-            <a
-              onClick={() => setSectionMenu(3)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 3 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-drumstick-bite"></i> {'  '}Churrasco
-            </a>
-
-            <a
-              onClick={() => setSectionMenu(4)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 4 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-bacon"></i> {'  '}Steaks
-            </a>
-
-            <a
-              onClick={() => setSectionMenu(5)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 5 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-cocktail"></i> {'  '}Bebidas
-            </a>
-
-            <a
-              onClick={() => setSectionMenu(6)}
-              className={`btn btn-white btn-sm mr-3 cursor-pointer ${
-                sectionMenu === 6 ? 'active' : ''
-              }`}
-            >
-              <i className="fas fa-ice-cream"></i> {'  '}Sobremesas
-            </a>
+            {menu.categories.map((c, i) => (
+              <a
+                key={i}
+                onClick={() => {
+                  setCategory(i);
+                }}
+                className={`btn btn-white btn-sm mr-3 cursor-pointer ${
+                  category === i ? 'active' : ''
+                }`}
+              >
+                <i className={c.icon}></i> {'  '}
+                {c.title}
+              </a>
+            ))}
           </div>
 
           <div className="col-12">
             <div className="row" id="itemsDishes">
-              <div className="col-3 mb-5">
-                <div className="card card-item">
-                  <div className="img-product">
-                    <img
-                      src={
-                        '/assets/images/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg'
-                      }
-                      alt="Burger 1"
-                    />
-                  </div>
-                  <p className="title-product text-center mt-4">
-                    <b>Nome do produto</b>
-                  </p>
-                  <p className="price-product text-center">
-                    <b>R$154,90</b>
-                  </p>
+              {dishesMenu.categories[category].dishes.map((d, i) => (
+                <div key={i} className="col-3 mb-5">
+                  <div className="card card-item">
+                    <div className="img-product">
+                      <img src={d.img_url} alt={d.title} />
+                    </div>
+                    <p className="title-product text-center mt-4">
+                      <b>{d.title}</b>
+                    </p>
+                    <p className="price-product text-center">
+                      <b>{formatCurrency(d.price)}</b>
+                    </p>
 
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-add">
-                      <i className="fa fa-shopping-bag"></i>
-                    </span>
+                    <div className="add-cart">
+                      <span className="btn-minus">
+                        <i className="fas fa-minus"></i>
+                      </span>
+                      <span className="add-qnt-items">0</span>
+                      <span className="btn-plus">
+                        <i className="fas fa-plus"></i>
+                      </span>
+                      <span className="btn btn-add">
+                        <i className="fa fa-shopping-bag"></i>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="col-3 mb-5">
-                <div className="card card-item">
-                  <div className="img-product">
-                    <img
-                      src={
-                        '/assets/images/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg'
-                      }
-                      alt="Burger 1"
-                    />
-                  </div>
-                  <p className="title-product text-center mt-4">
-                    <b>Nome do produto</b>
-                  </p>
-                  <p className="price-product text-center">
-                    <b>R$154,90</b>
-                  </p>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-add">
-                      <i className="fa fa-shopping-bag"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-3 mb-5">
-                <div className="card card-item">
-                  <div className="img-product">
-                    <img
-                      src={
-                        '/assets/images/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg'
-                      }
-                      alt="Burger 1"
-                    />
-                  </div>
-                  <p className="title-product text-center mt-4">
-                    <b>Nome do produto</b>
-                  </p>
-                  <p className="price-product text-center">
-                    <b>R$154,90</b>
-                  </p>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-add">
-                      <i className="fa fa-shopping-bag"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-3 mb-5">
-                <div className="card card-item">
-                  <div className="img-product">
-                    <img
-                      src={
-                        '/assets/images/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg'
-                      }
-                      alt="Burger 1"
-                    />
-                  </div>
-                  <p className="title-product text-center mt-4">
-                    <b>Nome do produto</b>
-                  </p>
-                  <p className="price-product text-center">
-                    <b>R$154,90</b>
-                  </p>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-add">
-                      <i className="fa fa-shopping-bag"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-3 mb-5">
-                <div className="card card-item">
-                  <div className="img-product">
-                    <img
-                      src={
-                        '/assets/images/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg'
-                      }
-                      alt="Burger 1"
-                    />
-                  </div>
-                  <p className="title-product text-center mt-4">
-                    <b>Nome do produto</b>
-                  </p>
-                  <p className="price-product text-center">
-                    <b>R$154,90</b>
-                  </p>
-
-                  <div className="add-cart">
-                    <span className="btn-minus">
-                      <i className="fas fa-minus"></i>
-                    </span>
-                    <span className="add-qnt-items">0</span>
-                    <span className="btn-plus">
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="btn btn-add">
-                      <i className="fa fa-shopping-bag"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
