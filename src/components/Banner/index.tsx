@@ -20,7 +20,7 @@ export default function Banner() {
                   Ver cardápio
                 </a>
                 <a
-                  href="tel:+5562985099000"
+                  href={`tel:+${process.env.NEXT_PUBLIC_PHONE}`}
                   target="_blank"
                   className="btn btn-white btn-icon-left mt-4"
                   rel="noreferrer"
@@ -49,7 +49,7 @@ export default function Banner() {
               <i className="fab fa-facebook-f"></i>
             </a>
             <a
-              href="https://wa.me/5562985099000"
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_PHONE}`}
               target="_blank"
               className="btn btn-sm btn-white btn-social mt-4"
               rel="noreferrer"

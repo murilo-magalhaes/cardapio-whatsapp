@@ -1,4 +1,10 @@
 export default function Reservations() {
+  let message = `Olá! Gostaria de fazer uma *reserva*`;
+
+  const urlReservation = `https://wa.me/${
+    process.env.NEXT_PUBLIC_PHONE
+  }?text=${encodeURI(message)}`;
+
   return (
     <section className="reservations" id="reservations">
       <div className="container">
@@ -17,7 +23,14 @@ export default function Reservations() {
                     Mande uma mensagem clicando no botão abaixo<br></br>
                     Reserve sua data e horário de forma simples e rápida.
                   </p>
-                  <a className="btn btn-yellow mt-4">Fazer reserva</a>
+                  <a
+                    target="_blank"
+                    href={urlReservation}
+                    className="btn btn-yellow mt-4"
+                    rel="noreferrer"
+                  >
+                    Fazer reserva
+                  </a>
                 </div>
                 <div className="col-5">
                   <div className="card-reservation"></div>

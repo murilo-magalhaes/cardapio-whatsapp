@@ -219,7 +219,9 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
     const a = document.createElement('a');
     a.target = '_blank';
 
-    a.href = `https://wa.me/5562985099000?text=${encodeURI(message)}`;
+    a.href = `https://wa.me/${process.env.NEXT_PUBLIC_PHONE}?text=${encodeURI(
+      message,
+    )}`;
 
     a.click();
   };
