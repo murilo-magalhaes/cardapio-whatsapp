@@ -1,6 +1,6 @@
 'use client';
 
-import dishesMenu, { IMenu } from '@/mock/dados';
+import dishesMenu, { IMenu } from '@/mock/menu';
 import formatCurrency from '@/utils/number/formatCurrency';
 import { useState } from 'react';
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';

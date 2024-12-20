@@ -376,20 +376,6 @@ a.navbar-brand {
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 15px;
-}
-
-#testimonial-1 .img-testimonial {
-  background-image: url('../../public/assets/images/diego.jpg');
-  background-size: cover;
-}
-
-#testimonial-2 .img-testimonial {
-  background-image: url('../../public/assets/images/ana.jpg');
-  background-size: cover;
-}
-
-#testimonial-3 .img-testimonial {
-  background-image: url('../../public/assets/images/joao.jpg');
   background-size: cover;
 }
 

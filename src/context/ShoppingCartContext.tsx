@@ -1,6 +1,6 @@
 'use client';
 
-import dishesMenu, { IDish, IMenu } from '@/mock/dados';
+import dishesMenu, { IDish, IMenu } from '@/mock/menu';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface ICartItem extends IDish {
