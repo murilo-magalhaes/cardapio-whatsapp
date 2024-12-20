@@ -11,12 +11,15 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputMask } from 'primereact/inputmask';
 import { InputText } from 'primereact/inputtext';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Progress from '../ProgressBar';
 import { InputDropDown } from '../Inputs/InputDropDown';
 import { Form } from '@unform/web';
 import justNumbers from '@/utils/string/justNumbers';
 import stringIsNotNull from '@/utils/string/stringIsNotNull';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+import getValidationErrors from '@/utils/error/getErrorsValidation';
 
 interface IProps {
   isOpen: boolean;
@@ -47,6 +50,7 @@ const emptyAddress: IAddress = {
 export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
   // refs & toast
   const toast = useToastContext();
+  const formAddressRef = useRef<FormHandles>(null);
 
   // states
   const [isLoad, setIsLoad] = useState<boolean>(false);
@@ -58,7 +62,6 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
   const [address, setAddress] = useState<IAddress>(emptyAddress);
 
   const [cities, setCities] = useState<ICity[]>([]);
-  console.log({ cities });
 
   // effects
   useEffect(() => {
@@ -125,13 +128,12 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
 
           setAddress({
             ...address,
-            cep,
             street: stringIsNotNull(res.data.logradouro)
               ? res.data.logradouro
               : address.street,
             complement: stringIsNotNull(res.data.complemento)
               ? res.data.complemento
-              : address.complement,
+              : '',
             neighborhood: stringIsNotNull(res.data.bairro)
               ? res.data.bairro
               : address.neighborhood,
@@ -152,6 +154,74 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
       .finally(() => {
         setIsLoad(false);
       });
+  };
+
+  const handleSubmitAddress = async () => {
+    setIsLoad(true);
+    try {
+      formAddressRef.current?.setErrors({});
+
+      const addressSchema = Yup.object({
+        cep: Yup.string().required('Por favor, informe o cep!'),
+        street: Yup.string()
+          .max(64, 'Rua/Avenida pode ter no máximo 64 caracteres!')
+          .required('Por favor, informe a rua!'),
+        number: Yup.string().max(9, 'Número pode ter no máximo 9 caracteres'),
+        neighborhood: Yup.string()
+          .max(64, 'Bairro pode ter no máximo 32 caracteres.')
+          .required('Por favor, informe o bairro'),
+        complement: Yup.string().max(
+          64,
+          'Complemento pode ter no máximo 64 caracteres',
+        ),
+        city_id: Yup.string().required('Por favor, informe a cidade!').uuid(),
+        city: Yup.object({
+          uf: Yup.string(),
+        }),
+      });
+
+      await addressSchema.validate(address, { abortEarly: false });
+
+      setStep(prevState => prevState + 1);
+
+      toast('success', 'Sucesso', 'Dados de endereço confirmados com sucesso!');
+    } catch (e: any) {
+      if (e instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(e);
+        formAddressRef.current?.setErrors(errors);
+        toast('error', 'Error', e.errors[0]);
+      } else {
+        toast('error', 'Error', messageRequestError(e));
+      }
+    } finally {
+      setIsLoad(false);
+    }
+  };
+
+  const handleSubmit = () => {
+    let items = '';
+
+    cart.forEach(d => {
+      items += `*${d.qnt}x* ${d.title} ....... ${formatCurrency(d.price)}\n`;
+    });
+
+    let message = 'Olá! Gostaria de fazer um pedido:';
+    message += `\nItens do pedido:\n\n${items}`;
+    message += `\n*Endereço de entrega:*`;
+    message += `\n${address.street}, ${
+      stringIsNotNull(address.number) ? `nº ${address.number},` : ''
+    } ${stringIsNotNull(address.complement) ? `${address.complement},` : ''} ${
+      address.neighborhood
+    }`;
+    message += `\n${address.city?.label}-${address.uf} / ${address.cep}`;
+    message += `\n\n*Total (com entrega): ${formatCurrency(summary.total)}*`;
+
+    const a = document.createElement('a');
+    a.target = '_blank';
+
+    a.href = `https://wa.me/5562985099000?text=${encodeURI(message)}`;
+
+    a.click();
   };
 
   // templates
@@ -199,6 +269,17 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
               className="flex h-full justify-content-center align-items-center"
               style={{ flexDirection: 'column' }}
             >
+              <span
+                className="btn btn-sm mb-4"
+                style={{
+                  backgroundColor: 'var(--color-secondary)',
+                  color: 'var(--color-primary)',
+                  borderRadius: '50px',
+                  padding: '15px 25px',
+                }}
+              >
+                <i className="fa fa-shopping-bag"></i>
+              </span>
               <p className="text-center">
                 <b>Seu carrinho está vazio...</b>
               </p>
@@ -260,7 +341,7 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
             )}
             {step === 2 && (
               <Form
-                onSubmit={() => {}}
+                onSubmit={handleSubmitAddress}
                 ref={null}
                 className="row mx-0"
                 placeholder={''}
@@ -281,7 +362,10 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                           setAddress({ ...address, cep: e.target.value });
                       }}
                     />
-                    <a className="btn btn-yellow btn-sm">
+                    <a
+                      onClick={() => loadAddress(address.cep)}
+                      className="btn btn-yellow btn-sm"
+                    >
                       <i className="fa fa-search"></i>
                     </a>
                   </div>
@@ -379,7 +463,7 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                       placeholder="Selecione..."
                       value={address.uf}
                       onChange={e => {
-                        setAddress({ ...address, uf: e.value });
+                        setAddress({ ...address, uf: e.value, city_id: '' });
                       }}
                     />
                   </div>
@@ -396,25 +480,24 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
 
                 <div className="col-12">
                   <div className="row">
-                    <div className="col-12 item-cart resume">
-                      <div className="img-product-resume">
-                        <img
-                          src="/assets/images/cardapio/burguers/goldbelly-burger-blend-1-lb.13a21b66edf7173a59c75c3a6d2f981b.jpg"
-                          alt="Produto"
-                        />
-                      </div>
-                      <div className="data-product">
-                        <p className="title-product-resume">
-                          <b>Nome do produto</b>
+                    {cart.map((d, i) => (
+                      <div key={i} className="col-12 item-cart resume">
+                        <div className="img-product-resume">
+                          <img src={d.img_url} alt={d.title} />
+                        </div>
+                        <div className="data-product">
+                          <p className="title-product-resume">
+                            <b>{d.title}</b>
+                          </p>
+                          <p className="price-product-resume">
+                            <b>{formatCurrency(d.price)}</b>
+                          </p>
+                        </div>
+                        <p className="qnt-product-resume">
+                          x <b>{d.qnt}</b>
                         </p>
-                        <p className="price-product-resume">
-                          <b>R$ 100,00</b>
-                        </p>
                       </div>
-                      <p className="qnt-product-resume">
-                        x <b>3</b>
-                      </p>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
@@ -430,9 +513,20 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                   </div>
                   <div className="data-product">
                     <p className="text-address">
-                      <b>Rua teste, 200, bairro teste</b>
+                      <b>
+                        {address.street},{' '}
+                        {stringIsNotNull(address.number)
+                          ? `nº ${address.number},`
+                          : ''}{' '}
+                        {stringIsNotNull(address.complement)
+                          ? `${address.complement}, `
+                          : ''}
+                        {address.neighborhood}
+                      </b>
                     </p>
-                    <p className="city-address">Cidade-GO / 75400-000</p>
+                    <p className="city-address">
+                      {address.city?.label}-{address.uf} / {address.cep}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -466,15 +560,19 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
 
             <Button
               disabled={cart.length === 0}
-              onClick={clearCart}
+              onClick={() => {
+                clearCart();
+                setStep(1);
+              }}
               className="btn btn-remove p-3 float-start"
               label="Limpar carrinho"
               icon="fa fa-trash"
+              visible={cart.length > 0}
             />
 
             {step === 1 && (
               <Button
-                disabled={cart.length === 0}
+                disabled={isLoad || cart.length === 0}
                 onClick={() => setStep(prevState => prevState + 1)}
                 className="btn btn-yellow float-end"
               >
@@ -482,24 +580,32 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
               </Button>
             )}
             {step === 2 && (
-              <a
-                onClick={() => setStep(prevState => prevState + 1)}
+              <Button
+                disabled={isLoad}
+                onClick={handleSubmitAddress}
                 className="btn btn-yellow float-end"
               >
                 Revisar pedido
-              </a>
+              </Button>
             )}
             {step === 3 && (
-              <a className="btn btn-yellow float-end">Enviar pedido</a>
+              <Button
+                disabled={isLoad}
+                onClick={handleSubmit}
+                className="btn btn-yellow float-end"
+              >
+                Enviar pedido
+              </Button>
             )}
 
             {step > 1 && (
-              <a
+              <Button
+                disabled={isLoad}
                 onClick={() => setStep(prevState => prevState - 1)}
                 className="btn btn-white float-end mr-3"
               >
                 Voltar
-              </a>
+              </Button>
             )}
           </div>
         </div>

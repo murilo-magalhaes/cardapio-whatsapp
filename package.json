@@ -20,7 +20,8 @@
     "primereact": "^10.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.3",

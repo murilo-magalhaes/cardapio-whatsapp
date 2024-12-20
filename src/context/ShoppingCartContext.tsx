@@ -48,7 +48,6 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    console.log(cart);
     recalculateSummary();
   }, [cart]);
 

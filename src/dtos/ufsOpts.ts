@@ -1,4 +1,4 @@
-import IOptionDTO from './IOptionDTO';
+import IOptionDTO from '../fonts/IOptionDTO';
 
 export default [
   { label: 'Acre', value: 'AC' },

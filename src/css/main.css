@@ -740,3 +740,8 @@ footer {
   cursor: pointer;
   z-index: 1000;
 }
+
+span.p-dropdown-label {
+  color: var(--color-black) !important;
+  font-size: 20px;
+}

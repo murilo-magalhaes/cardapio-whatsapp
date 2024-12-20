@@ -38,7 +38,11 @@ export const InputDropDown: React.FC<PropsInput> = ({
       {...rest}
       emptyMessage="Nenhuma opção foi encontrada"
       emptyFilterMessage="Nenhuma opção foi encontrada"
-      className={error ? `${rest.className} p-invalid` : `${rest.className}`}
+      className={
+        error
+          ? `${rest.className} p-invalid dropdown`
+          : `${rest.className} dropdown`
+      }
     />
   );
 };
