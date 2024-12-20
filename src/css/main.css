@@ -731,3 +731,8 @@ span.p-dropdown-label {
   color: var(--color-black) !important;
   font-size: 20px;
 }
+
+.btn-additionals {
+  font-size: 14px !important;
+  padding: 10px !important;
+}

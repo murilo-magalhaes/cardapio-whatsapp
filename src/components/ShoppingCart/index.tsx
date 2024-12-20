@@ -20,6 +20,8 @@ import stringIsNotNull from '@/utils/string/stringIsNotNull';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import getValidationErrors from '@/utils/error/getErrorsValidation';
+import additionalsMock, { IAdditional } from '@/mock/additionals';
+import ModalAdditionals from '../ModalAdditionals';
 
 interface IProps {
   isOpen: boolean;
@@ -57,13 +59,20 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
 
   const { cart, summary, addItem, removeItem, clearCart } = useShoppingCart();
 
+  const [additionals, setAdditionals] =
+    useState<IAdditional[]>(additionalsMock);
+
   const [step, setStep] = useState<number>(1);
 
   const [address, setAddress] = useState<IAddress>(emptyAddress);
 
   const [cities, setCities] = useState<ICity[]>([]);
 
-  // effects
+  const [modalAdditionalsVisible, setModalAdditionalsVisible] =
+    useState<boolean>(false);
+
+  const [dishId, setDishId] = useState<string>('');
+
   useEffect(() => {
     loadCities();
   }, []);
@@ -311,6 +320,19 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
                         <b>{formatCurrency(d.total)}</b>
                       </p>
                     </div>
+
+                    <Button
+                      disabled={isLoad}
+                      onClick={() => {
+                        setDishId(d.id);
+                        setModalAdditionalsVisible(true);
+                      }}
+                      className="btn btn-yellow btn-additionals mr-4"
+                      label={`Adicionais x${d.additionals.reduce(
+                        (a, i) => (a += i.qnt),
+                        0,
+                      )}`}
+                    />
 
                     <div className="add-cart">
                       <span
@@ -612,6 +634,14 @@ export default function ShoppingCart({ isOpen, onRequestClose }: IProps) {
           </div>
         </div>
       </div>
+      <ModalAdditionals
+        dishId={dishId}
+        isOpen={modalAdditionalsVisible}
+        onRequestClose={() => {
+          setModalAdditionalsVisible(false);
+          setDishId('');
+        }}
+      />
     </Dialog>
   );
 }

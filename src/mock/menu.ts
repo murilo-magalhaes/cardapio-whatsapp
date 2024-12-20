@@ -7,6 +7,15 @@ export interface IDish {
   price: number;
 }
 
+export const emptyDish: IDish = {
+  id: '',
+  category_id: '',
+  img_url: '',
+  title: '',
+  description: '',
+  price: 0,
+};
+
 export interface ICategory {
   id: string;
   title: string;

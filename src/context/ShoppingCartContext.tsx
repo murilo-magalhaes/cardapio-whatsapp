@@ -1,11 +1,18 @@
 'use client';
 
+import additionalsMock, { IAdditional } from '@/mock/additionals';
 import dishesMenu, { IDish, IMenu } from '@/mock/menu';
 import { createContext, ReactNode, useEffect, useState } from 'react';
+
+interface IItemAdditional extends IAdditional {
+  qnt: number;
+  total: number;
+}
 
 interface ICartItem extends IDish {
   qnt: number;
   total: number;
+  additionals: IItemAdditional[];
 }
 
 interface ICartSummary {
@@ -29,6 +36,8 @@ interface IContextData {
   summary: ICartSummary;
   addItem: (categotyId: string, dishId: string, qnt: number) => void;
   removeItem: (id: string, qnt: number) => void;
+  addAdditional: (dishId: string, addId: string, qnt: number) => void;
+  remAdditional: (dishId: string, addId: string, qnt: number) => void;
   clearCart: () => void;
 }
 
@@ -38,6 +47,7 @@ export const ShoppingCartContext = createContext<IContextData | undefined>(
 
 export function ShoppingCartProvider({ children }: { children: ReactNode }) {
   const [menu, setMenu] = useState<IMenu>({ categories: [] });
+  const [additionals, setAdditionals] = useState<IAdditional[]>([]);
 
   const [cart, setCart] = useState<ICartItem[]>([]);
 
@@ -45,6 +55,7 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     loadMenu();
+    loadAddtionals();
   }, []);
 
   useEffect(() => {
@@ -67,6 +78,11 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
     setMenu(dishesMenu);
   };
 
+  const loadAddtionals = async () => {
+    // Mudar para busca de adicionais reais
+    setAdditionals(additionalsMock);
+  };
+
   const addItem = (categotyId: string, dishId: string, qnt: number) => {
     const hasDish = cart.find(d => d.id === dishId);
 
@@ -83,7 +99,10 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
         const dish = category.dishes.find(d => d.id === dishId);
 
         if (dish) {
-          setCart([...cart, { ...dish, qnt, total: dish.price * qnt }]);
+          setCart([
+            ...cart,
+            { ...dish, qnt, total: dish.price * qnt, additionals: [] },
+          ]);
         }
       }
     }
@@ -109,6 +128,40 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
     setCart([]);
   };
 
+  const addAdditional = (dishId: string, addId: string, qnt: number) => {
+    const dish = cart.find(d => d.id === dishId);
+
+    if (dish) {
+      const _cart = cart.filter(d => d.id !== dishId);
+
+      const hasAdditional = dish.additionals.find(a => a.id === addId);
+
+      if (hasAdditional) {
+        dish.additionals = dish.additionals.filter(a => a.id !== addId);
+        dish.additionals.push({
+          ...hasAdditional,
+          qnt: hasAdditional.qnt + qnt,
+          total: hasAdditional.price * (hasAdditional.qnt + qnt),
+        });
+        _cart.push(dish);
+      } else {
+        const additional = additionals.find(a => a.id === addId);
+
+        if (additional) {
+          dish.additionals.push({
+            ...additional,
+            qnt,
+            total: additional.price * qnt,
+          });
+
+          _cart.push(dish);
+        }
+      }
+      setCart(_cart);
+    }
+  };
+  const remAdditional = (dishId: string, addId: string, qnt: number) => {};
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -117,6 +170,8 @@ export function ShoppingCartProvider({ children }: { children: ReactNode }) {
         addItem,
         removeItem,
         clearCart,
+        addAdditional,
+        remAdditional,
       }}
     >
       {children}
